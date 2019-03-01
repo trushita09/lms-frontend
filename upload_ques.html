@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="css/upload_ques.css" type="text/css" rel="stylesheet">
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<!-- Font-Awesome Icons -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="page-content">
+		<div class="form-v5-content">
+			<form class="form-detail" id="add_q" action="#" method="post">
+				<h2>Add Questions</h2>
+				<div class="form-row">
+					<label for="full-name">Full Name</label>
+					<input type="text" name="full-name" id="full-name" class="input-text" placeholder="Your Name" required>
+					<i class="fas fa-user iAttr"></i>
+				</div>
+				<div class="form-row">
+					<label for="your-email">Your Email</label>
+					<input type="text" name="your-email" id="your-email" class="input-text" placeholder="Your Email" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}">
+					<i class="fas fa-envelope iAttr"></i>
+				</div>
+				<div class="form-row" id="no_ques">
+					<label for="noOfQues">Number Of Questions To Add</label>
+					<i class="fa fa-minus" id="minus" onclick="decrement()"></i>
+					<input type="number" name="noOfQues" id="noOfQues" min="1" value="0" class="input-text" onchange="changeQues()" required>
+					<i class="fas fa-plus iAttr" onclick="increment()"></i>
+				</div>
+				<div class="two-col">
+					<div class="form-row-1">
+						<label for="markingScheme">Marking Scheme</label>
+						<input type="text" name="markingScheme" id="markingScheme" class="input-text" placeholder="Example: +5/-1" required pattern="[+][1-9][/][-][0-9]">
+					</div>
+					<div class="form-row-2">
+						<label for="timeLimit">Time Limit (In Minutes)</label>
+						<input type="number" name="timeLimit" id="timeLimit" min="10" class="input-text" placeholder="Example: 180" required>
+					</div>
+				</div>
+				<div class="questions" id="que">
+				</div>
+				<div class="form-row-last">
+					<input type="submit" name="submit" class="submit" value="Submit">
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
+
+<script type="text/javascript">
+	var count=0, j=0, k=0;
+	var cval=document.getElementById('noOfQues').value;
+	function increment(){
+		count = document.getElementById('noOfQues').value;
+		document.getElementById('noOfQues').value = ++count;
+		addQues(count);
+	}
+
+	function decrement(){
+		count = document.getElementById('noOfQues').value;
+		if(count>0){
+			document.getElementById('noOfQues').value = --count;
+			delQues(count);
+		}
+	}
+
+	function addQues(nval){
+		var x;
+			if(k<=j){
+				x=document.createElement("DIV");
+				x.className="form-row";
+				x.id="q"+j;
+				document.getElementById("que").appendChild(x);
+
+				x=document.createElement("LABEL");
+				x.setAttribute("for", "question");
+				x.appendChild(document.createTextNode("Question "+(j+1)));
+				document.getElementById("q"+j).appendChild(x);
+
+				x=document.createElement("TEXTAREA");
+				x.className="input-text";
+				x.setAttribute("rows","5");
+				x.setAttribute("cols","55");
+				x.setAttribute("name","question");
+				x.setAttribute("placeholder","  Enter Question here..");
+				x.setAttribute("required","true");
+				document.getElementById("q"+j).appendChild(x);
+
+				x=document.createElement("DIV");
+				x.className="two-col";
+				x.id="two-col"+j;
+				document.getElementById("que").appendChild(x);
+
+				x=document.createElement("DIV");
+				x.className="form-row-1";
+				x.id="op"+j+1;
+				document.getElementById("two-col"+j).appendChild(x);
+
+				x=document.createElement("LABEL");
+				x.setAttribute("for","option1");
+				x.appendChild(document.createTextNode("Option 1"));
+				document.getElementById("op"+j+1).appendChild(x);
+
+				x=document.createElement("INPUT");
+				x.className="input-text";
+				x.id="option1";
+				x.setAttribute("type","text");
+				x.setAttribute("name","option1");
+				x.setAttribute("placeholder","First Option");
+				x.setAttribute("required","true");
+				document.getElementById("op"+j+1).appendChild(x);
+
+				x=document.createElement("DIV");
+				x.className="form-row-2";
+				x.id="op"+j+2;
+				document.getElementById("two-col"+j).appendChild(x);
+
+				x=document.createElement("LABEL");
+				x.setAttribute("for","option2");
+				x.appendChild(document.createTextNode("Option 2"));
+				document.getElementById("op"+j+2).appendChild(x);
+
+				x=document.createElement("INPUT");
+				x.className="input-text";
+				x.id="option2";
+				x.setAttribute("type","text");
+				x.setAttribute("name","option2");
+				x.setAttribute("placeholder","Second Option");
+				x.setAttribute("required","true");
+				document.getElementById("op"+j+2).appendChild(x);
+
+				x=document.createElement("DIV");
+				x.className="form-row-1";
+				x.id="op"+j+3;
+				document.getElementById("two-col"+j).appendChild(x);
+
+				x=document.createElement("LABEL");
+				x.setAttribute("for","option3");
+				x.appendChild(document.createTextNode("Option 3"));
+				document.getElementById("op"+j+3).appendChild(x);
+
+				x=document.createElement("INPUT");
+				x.className="input-text";
+				x.id="option3";
+				x.setAttribute("type","text");
+				x.setAttribute("name","option3");
+				x.setAttribute("placeholder","Third Option");
+				x.setAttribute("required","true");
+				document.getElementById("op"+j+3).appendChild(x);
+
+				x=document.createElement("DIV");
+				x.className="form-row-2";
+				x.id="op"+j+4;
+				document.getElementById("two-col"+j).appendChild(x);
+
+				x=document.createElement("LABEL");
+				x.setAttribute("for","option4");
+				x.appendChild(document.createTextNode("Option 4"));
+				document.getElementById("op"+j+4).appendChild(x);
+
+				x=document.createElement("INPUT");
+				x.className="input-text";
+				x.id="option4";
+				x.setAttribute("type","text");
+				x.setAttribute("name","option4");
+				x.setAttribute("placeholder","Fourth Option");
+				x.setAttribute("required","true");
+				document.getElementById("op"+j+4).appendChild(x);
+
+				j++; k++;
+			}
+
+			else{
+				document.getElementById("q"+cval).classList.remove("display-none");
+				document.getElementById("two-col"+cval).classList.remove("display-none");
+				
+				j++;
+			}
+			
+
+		// cval=nval;
+		cval++;
+	}
+
+	function delQues(nval){
+		
+		document.getElementById("q"+nval).classList.add("display-none");
+		document.getElementById("two-col"+nval).classList.add("display-none");
+		j--;
+		
+		// cval=nval;
+		cval--;
+	}
+
+	function changeQues(){
+		var val=document.getElementById('noOfQues').value;
+		if((val-1)>=cval){
+			for(var i=cval; i<val; i++){
+				addQues(i);
+			}
+		}
+		else{
+			for(var i=cval-1; i>=val; i--){
+				delQues(i);
+			}
+		}
+
+	}
+	
+</script>
